@@ -1,0 +1,50 @@
+{
+    "name": "hedii/artisan-log-cleaner",
+    "description": "An artisan command to clear laravel log files",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "hedii",
+        "artisan-log-cleaner",
+        "laravel",
+        "artisan",
+        "log",
+        "php"
+    ],
+    "authors": [
+        {
+            "name": "hedii",
+            "email": "hedi.chaibs@gmail.com",
+            "homepage": "https://hedichaibi.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hedii/artisan-log-cleaner/issues",
+        "source": "https://github.com/hedii/artisan-log-cleaner",
+        "email": "hedi.chaibs@gmail.com"
+    },
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "^5.3",
+        "illuminate/filesystem": "^5.3",
+        "illuminate/console": "^5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5",
+        "orchestra/testbench": "^3.3",
+        "mockery/mockery": "^0.9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hedii\\ArtisanLogCleaner\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hedii\\ArtisanLogCleaner\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
