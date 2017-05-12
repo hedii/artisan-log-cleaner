@@ -25,7 +25,7 @@ composer require hedii/artisan-log-cleaner
 Add it to your providers array in `config/app.php`:
 
 ```php
-Hedii\ArtisanLogCleaner\ClearLogs::class
+Hedii\ArtisanLogCleaner\ArtisanLogCleanerServiceProvider::class
 ```
 
 ## Usage
