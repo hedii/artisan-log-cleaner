@@ -50,7 +50,7 @@ class ClearLogs extends Command
     {
         $files = $this->getLogFiles();
 
-        if ($this->option('keep-last') && $files->count() > 1) {
+        if ($this->option('keep-last') && $files->count() >= 1) {
             $files->shift();
         }
 
