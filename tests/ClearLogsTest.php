@@ -46,6 +46,17 @@ class ClearLogsTest extends TestCase
         }
     }
 
+    public function test_it_should_keep_the_last_log_file_if_the_option_is_with_only_one_file()
+    {
+        touch($this->logDirectory . '/file1.log', time() - 3600);
+
+        if (! $this->artisan('log:clear', ['--keep-last' => true])) {
+            $this->assertFileExists($this->logDirectory . '/file1.log');
+        } else {
+            $this->assertTrue(false, 'this test failed...');
+        }
+    }
+
     public function test_it_should_return_zero_even_if_there_is_no_log_file()
     {
         $this->assertEquals(0, $this->artisan('log:clear'));
