@@ -46,6 +46,14 @@ Run this command to clear all log files except the last one in the log directory
 php artisan log:clear --keep-last
 ```
 
+### Automated cleanup of log files 
+
+Add this to the App\Console\Kernel schedule method to ensure daily cleanup of old log files
+
+```
+$schedule->command('log:clear --keep-last')->daily();
+```
+
 ## Testing
 
 ```
