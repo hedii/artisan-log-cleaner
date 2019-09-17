@@ -43,10 +43,8 @@ class ClearLogs extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $files = $this->getLogFiles();
 
@@ -70,7 +68,7 @@ class ClearLogs extends Command
      *
      * @return \Illuminate\Support\Collection
      */
-    private function getLogFiles()
+    private function getLogFiles(): Collection
     {
         return collect(
             $this->disk->allFiles(storage_path('logs'))
@@ -83,7 +81,7 @@ class ClearLogs extends Command
      * @param \Illuminate\Support\Collection $files
      * @return int
      */
-    private function delete(Collection $files)
+    private function delete(Collection $files): int
     {
         return $files->each(function ($file) {
             $this->disk->delete($file);

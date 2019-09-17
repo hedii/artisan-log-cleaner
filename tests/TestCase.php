@@ -3,10 +3,6 @@
 namespace Hedii\ArtisanLogCleaner\Tests;
 
 use Hedii\ArtisanLogCleaner\ArtisanLogCleanerServiceProvider;
-use Hedii\ArtisanLogCleaner\ClearLogs;
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Filesystem\Filesystem;
-use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -21,7 +17,7 @@ class TestCase extends Orchestra
     /**
      * Executed before each test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +29,7 @@ class TestCase extends Orchestra
     /**
      * Executed after each test.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
@@ -46,44 +42,9 @@ class TestCase extends Orchestra
      * @param \Illuminate\Foundation\Application $app
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [ArtisanLogCleanerServiceProvider::class];
-    }
-
-    /**
-     * The mock of the command.
-     *
-     * @return \Mockery\MockInterface
-     */
-    protected function getMockedCommand()
-    {
-        return Mockery::mock(ClearLogs::class . '[info]', [
-            new Filesystem()
-        ]);
-    }
-
-    /**
-     * The command info expectation.
-     *
-     * @param string $message
-     * @param \Mockery\MockInterface $command
-     */
-    protected function expectInfoMessage($message, $command)
-    {
-        $command->shouldReceive('info')
-            ->once()
-            ->with($message);
-    }
-
-    /**
-     * Register the mocked command.
-     *
-     * @param \Mockery\MockInterface $command
-     */
-    protected function registerCommand($command)
-    {
-        $this->app[Kernel::class]->registerCommand($command);
     }
 
     /**
@@ -91,7 +52,7 @@ class TestCase extends Orchestra
      *
      * @param array|string $files
      */
-    protected function createLogFile($files)
+    protected function createLogFile($files): void
     {
         foreach ((array) $files as $file) {
             touch($this->logDirectory . '/' . $file);
@@ -101,7 +62,7 @@ class TestCase extends Orchestra
     /**
      * Delete all fake log files int the test temporary directory.
      */
-    private function deleteLogFiles()
+    private function deleteLogFiles(): void
     {
         foreach (glob($this->logDirectory . '/*') as $file) {
             if (is_file($file)) {
