@@ -14,8 +14,8 @@ class ClearLogsTest extends TestCase
 
         $this->artisan('log:clear');
 
-        $this->assertFileNotExists($this->logDirectory . '/file1.log');
-        $this->assertFileNotExists($this->logDirectory . '/file2.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file1.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file2.log');
     }
 
     /** @test */
@@ -29,8 +29,8 @@ class ClearLogsTest extends TestCase
         $this->artisan('log:clear');
 
         $this->assertFileExists($this->logDirectory . '/.gitignore');
-        $this->assertFileNotExists($this->logDirectory . '/file1.log');
-        $this->assertFileNotExists($this->logDirectory . '/file2.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file1.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file2.log');
     }
 
     /** @test */
@@ -47,8 +47,8 @@ class ClearLogsTest extends TestCase
         $this->artisan('log:clear', ['--keep-last' => true]);
 
         $this->assertFileExists($this->logDirectory . '/file1.log');
-        $this->assertFileNotExists($this->logDirectory . '/file2.log');
-        $this->assertFileNotExists($this->logDirectory . '/file3.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file2.log');
+        $this->assertFileDoesNotExist($this->logDirectory . '/file3.log');
     }
 
     /** @test */
