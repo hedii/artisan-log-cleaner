@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/hedii/artisan-log-cleaner.svg?branch=master)](https://travis-ci.org/hedii/artisan-log-cleaner)
+[![Build Status](https://github.com/hedii/artisan-log-cleaner/workflows/Tests/badge.svg)](https://github.com/hedii/artisan-log-cleaner/actions)
+[![Total Downloads](https://poser.pugx.org/hedii/artisan-log-cleaner/downloads)](//packagist.org/packages/hedii/artisan-log-cleaner)
+[![License](https://poser.pugx.org/hedii/artisan-log-cleaner/license)](//packagist.org/packages/hedii/artisan-log-cleaner)
+[![Latest Stable Version](https://poser.pugx.org/hedii/artisan-log-cleaner/v)](//packagist.org/packages/hedii/artisan-log-cleaner)
 
 # Artisan Log Cleaner
 
