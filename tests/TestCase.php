@@ -3,16 +3,15 @@
 namespace Hedii\ArtisanLogCleaner\Tests;
 
 use Hedii\ArtisanLogCleaner\ArtisanLogCleanerServiceProvider;
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
     /**
      * The log directory path.
-     *
-     * @var string
      */
-    protected $logDirectory;
+    protected string $logDirectory;
 
     /**
      * Executed before each test.
@@ -40,7 +39,6 @@ class TestCase extends Orchestra
      * Load the command service provider.
      *
      * @param \Illuminate\Foundation\Application $app
-     * @return array
      */
     protected function getPackageProviders($app): array
     {
@@ -49,10 +47,8 @@ class TestCase extends Orchestra
 
     /**
      * Create fake log files in the test temporary directory.
-     *
-     * @param array|string $files
      */
-    protected function createLogFile($files): void
+    protected function createLogFile(array|string $files): void
     {
         foreach ((array) $files as $file) {
             touch($this->logDirectory . '/' . $file);

@@ -23,22 +23,13 @@ class ClearLogs extends Command
     protected $description = 'Remove every log files in the log directory';
 
     /**
-     * A filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    private $disk;
-
-    /**
      * Create a new command instance.
      *
      * @param \Illuminate\Filesystem\Filesystem $disk
      */
-    public function __construct(Filesystem $disk)
+    public function __construct(private Filesystem $disk)
     {
         parent::__construct();
-
-        $this->disk = $disk;
     }
 
     /**
@@ -65,21 +56,16 @@ class ClearLogs extends Command
 
     /**
      * Get a collection of log files sorted by their last modification date.
-     *
-     * @return \Illuminate\Support\Collection
      */
     private function getLogFiles(): Collection
     {
-        return collect(
+        return Collection::make(
             $this->disk->allFiles(storage_path('logs'))
         )->sortBy('mtime');
     }
 
     /**
      * Delete the given files.
-     *
-     * @param \Illuminate\Support\Collection $files
-     * @return int
      */
     private function delete(Collection $files): int
     {
