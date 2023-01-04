@@ -49,6 +49,14 @@ Run this command to clear all log files except the last one in the log directory
 php artisan log:clear --keep-last
 ```
 
+### Clear all log files except specified file names
+
+Run this command to clear all log files except the specified files in the option. Specify file name without extension. Can be combined with `--keep-last` option.
+
+```
+php artisan log:clear --keep="keptLog"
+```
+
 ### Automated cleanup of log files 
 
 Add this to the App\Console\Kernel schedule method to ensure daily cleanup of old log files

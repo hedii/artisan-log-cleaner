@@ -13,7 +13,7 @@ class ClearLogs extends Command
      *
      * @var string
      */
-    protected $signature = 'log:clear {--keep-last : Whether the last log file should be kept}';
+    protected $signature = 'log:clear {--keep-last : Whether the last log file should be kept} {--keep=* : Log files to keep (without extension)}';
 
     /**
      * The console command description.
@@ -38,10 +38,13 @@ class ClearLogs extends Command
     public function handle(): void
     {
         $files = $this->getLogFiles();
+        $filesToKeep = $this->option('keep');
 
         if ($this->option('keep-last') && $files->count() >= 1) {
             $files->shift();
         }
+
+        $files = $this->filesToDelete($files, $filesToKeep);
 
         $deleted = $this->delete($files);
 
@@ -62,6 +65,19 @@ class ClearLogs extends Command
         return Collection::make(
             $this->disk->allFiles(storage_path('logs'))
         )->sortBy('mtime');
+    }
+
+    /**
+     * Remove specified files from deletion list 
+     *
+     * @param Collection $files
+     * @return Collection
+     */
+    private function filesToDelete(Collection $files, array $fileNames): Collection
+    {
+        return $files->filter(function($value, $key) use ($fileNames){
+            return !in_array($value->getFilenameWithoutExtension(), $fileNames);
+        });
     }
 
     /**
