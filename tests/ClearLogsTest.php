@@ -64,6 +64,21 @@ class ClearLogsTest extends TestCase
     }
 
     /** @test */
+    public function it_should_keep_the_specified_log_file_if_the_option_is_keep_specified_files(): void
+    {
+        touch($this->logDirectory . '/file1.log', time() - 3600);
+        touch($this->logDirectory . '/file2.log', time() - 3600);
+
+        $this->assertFileExists($this->logDirectory . '/file1.log');
+        $this->assertFileExists($this->logDirectory . '/file2.log');
+
+        $this->artisan('log:clear', ['--keep' => ['file2']]);
+
+        $this->assertFileDoesNotExist($this->logDirectory . '/file1.log');
+        $this->assertFileExists($this->logDirectory . '/file2.log');
+    }
+
+    /** @test */
     public function it_should_return_zero_even_if_there_is_no_log_file(): void
     {
         $this

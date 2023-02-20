@@ -8,40 +8,25 @@ use Illuminate\Support\Collection;
 
 class ClearLogs extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'log:clear {--keep-last : Whether the last log file should be kept}';
+    protected $signature = 'log:clear {--keep-last : Whether the last log file should be kept} {--keep=* : Log files to keep (without extension)}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Remove every log files in the log directory';
 
-    /**
-     * Create a new command instance.
-     *
-     * @param \Illuminate\Filesystem\Filesystem $disk
-     */
     public function __construct(private Filesystem $disk)
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(): void
+    public function handle(): int
     {
         $files = $this->getLogFiles();
+        $filesToKeep = $this->option('keep');
 
         if ($this->option('keep-last') && $files->count() >= 1) {
             $files->shift();
         }
+
+        $files = $this->filesToDelete($files, $filesToKeep);
 
         $deleted = $this->delete($files);
 
@@ -52,6 +37,8 @@ class ClearLogs extends Command
         } else {
             $this->info($deleted . ' log files have been deleted');
         }
+
+        return Command::SUCCESS;
     }
 
     /**
@@ -62,6 +49,16 @@ class ClearLogs extends Command
         return Collection::make(
             $this->disk->allFiles(storage_path('logs'))
         )->sortBy('mtime');
+    }
+
+    /**
+     * Remove specified files from deletion list
+     */
+    private function filesToDelete(Collection $files, array $fileNames): Collection
+    {
+        return $files->filter(function ($value, $key) use ($fileNames) {
+            return ! in_array($value->getFilenameWithoutExtension(), $fileNames);
+        });
     }
 
     /**
