@@ -74,6 +74,7 @@ class ClearLogsTest extends TestCase
 
         $this->artisan('log:clear', ['--keep' => ['file2']]);
 
+        $this->assertFileDoesNotExist($this->logDirectory . '/file1.log');
         $this->assertFileExists($this->logDirectory . '/file2.log');
     }
 
