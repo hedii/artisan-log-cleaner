@@ -2,9 +2,11 @@
 
 namespace Hedii\ArtisanLogCleaner\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
+
 class ClearLogsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_should_delete_all_files_in_log_directory(): void
     {
         $this->createLogFile(['file1.log', 'file2.log']);
@@ -18,7 +20,7 @@ class ClearLogsTest extends TestCase
         $this->assertFileDoesNotExist($this->logDirectory . '/file2.log');
     }
 
-    /** @test */
+    #[Test]
     public function it_should_not_delete_dot_files_in_log_directory(): void
     {
         $this->createLogFile(['file1.log', 'file2.log']);
@@ -33,7 +35,7 @@ class ClearLogsTest extends TestCase
         $this->assertFileDoesNotExist($this->logDirectory . '/file2.log');
     }
 
-    /** @test */
+    #[Test]
     public function it_should_keep_the_last_log_file_if_the_option_is_provided(): void
     {
         touch($this->logDirectory . '/file1.log', time() - 3600);
@@ -51,7 +53,7 @@ class ClearLogsTest extends TestCase
         $this->assertFileDoesNotExist($this->logDirectory . '/file3.log');
     }
 
-    /** @test */
+    #[Test]
     public function it_should_keep_the_last_log_file_if_the_option_is_with_only_one_file(): void
     {
         touch($this->logDirectory . '/file1.log', time() - 3600);
@@ -63,7 +65,7 @@ class ClearLogsTest extends TestCase
         $this->assertFileExists($this->logDirectory . '/file1.log');
     }
 
-    /** @test */
+    #[Test]
     public function it_should_keep_the_specified_log_file_if_the_option_is_keep_specified_files(): void
     {
         touch($this->logDirectory . '/file1.log', time() - 3600);
@@ -78,7 +80,7 @@ class ClearLogsTest extends TestCase
         $this->assertFileExists($this->logDirectory . '/file2.log');
     }
 
-    /** @test */
+    #[Test]
     public function it_should_return_zero_even_if_there_is_no_log_file(): void
     {
         $this
@@ -86,7 +88,7 @@ class ClearLogsTest extends TestCase
             ->assertExitCode(0);
     }
 
-    /** @test */
+    #[Test]
     public function it_should_return_zero_with_the_keep_last_option_even_if_there_is_no_log_file(): void
     {
         $this
@@ -94,7 +96,7 @@ class ClearLogsTest extends TestCase
             ->assertExitCode(0);
     }
 
-    /** @test */
+    #[Test]
     public function it_should_display_the_correct_message_when_no_log_file_has_been_deleted(): void
     {
         $this
@@ -103,7 +105,7 @@ class ClearLogsTest extends TestCase
             ->assertExitCode(0);
     }
 
-    /** @test */
+    #[Test]
     public function it_should_display_the_correct_message_when_one_log_file_has_been_deleted(): void
     {
         $this->createLogFile(['file1.log', 'file2.log']);
@@ -117,7 +119,7 @@ class ClearLogsTest extends TestCase
             ->assertExitCode(0);
     }
 
-    /** @test */
+    #[Test]
     public function it_should_display_the_correct_message_when_more_than_one_log_file_has_been_deleted(): void
     {
         $this->createLogFile(['file1.log', 'file2.log', 'file3.log']);
